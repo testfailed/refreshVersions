@@ -9,7 +9,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.gradle:gradle-hello-world-plugin:_")
+        classpath(libs.gradle.hello.world.plugin)
     }
 }
 
@@ -35,17 +35,17 @@ dependencies {
     testImplementation(KotlinX.coroutines.core)
     testImplementation(KotlinX.coroutines.jdk8)
     testImplementation(Testing.kotest.runner.junit4)
-    testImplementation("junit:junit:4.12")
-    implementation("com.google.guava:guava:15.0")
-    implementation("com.google.inject:guice:2.0")
-    implementation("com.squareup.okhttp3:okhttp:3.10.0")
-    implementation("com.squareup.okhttp3:okhttp-urlconnection:3.10.0")
+    testImplementation(libs.junit)
+    implementation(libs.guava)
+    implementation(libs.guice)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.urlconnection)
     implementation(kotlin("stdlib-jdk8"))
-    implementation("org.mongodb:mongo-java-driver:3.11.0")
+    implementation(libs.mongo.java.driver)
     implementation(kotlin("script-runtime"))
 
-    api("org.apache.poi:poi:_")
-    api("org.apache.poi:poi-ooxml:_")
+    api(libs.poi)
+    api(libs.poi.ooxml)
 }
 
 getKotlinPluginVersion().let {

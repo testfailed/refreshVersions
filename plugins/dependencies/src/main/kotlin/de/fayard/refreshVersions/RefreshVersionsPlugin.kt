@@ -6,10 +6,15 @@ import de.fayard.refreshVersions.core.internal.VersionCatalogs.LIBS_VERSIONS_TOM
 import de.fayard.refreshVersions.core.internal.removals_replacement.RemovedDependencyNotationsReplacementInfo
 import de.fayard.refreshVersions.internal.getArtifactNameToConstantMapping
 import org.gradle.api.DefaultTask
+import org.gradle.api.NamedDomainObjectProvider
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.UnknownDomainObjectException
+import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.api.file.RegularFile
 import org.gradle.api.initialization.Settings
 import org.gradle.api.invocation.Gradle
+import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.*
 import java.io.InputStream
 
@@ -191,6 +196,12 @@ open class RefreshVersionsPlugin : Plugin<Any> {
         ) {
             group = "refreshVersions"
             description = "Migrate build to refreshVersions"
+
+
+            val gradleDirectory = project.layout.projectDirectory.dir("gradle")
+            catalogsDirectory.convention(gradleDirectory)
+            outputDirectory.convention(gradleDirectory)
+            versionsProperties.convention {  project.file("versions.properties") }
         }
     }
 

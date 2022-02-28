@@ -38,13 +38,13 @@ open class RefreshVersionsCleanupTask : DefaultTask() {
             .filter { it.existed }
 
         settingsFiles.forEach { settingsFile ->
-            val initialContent = settingsFile.readText(project)
+            val initialContent = settingsFile.readText()
             val newContent = buildString {
                 append(initialContent)
                 removeCommentsAddedByUs()
             }
             if (initialContent.length != newContent.length) {
-                settingsFile.writeText(newContent, project)
+                settingsFile.writeText(newContent)
             }
         }
 

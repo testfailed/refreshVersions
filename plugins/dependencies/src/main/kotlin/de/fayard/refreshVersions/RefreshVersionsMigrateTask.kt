@@ -7,13 +7,31 @@ import de.fayard.refreshVersions.core.internal.VersionCatalogs
 import de.fayard.refreshVersions.core.internal.associateShortestByMavenCoordinate
 import de.fayard.refreshVersions.internal.getArtifactNameToConstantMapping
 import org.gradle.api.DefaultTask
+import org.gradle.api.artifacts.VersionCatalog
+import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.options.Option
 import org.intellij.lang.annotations.Language
 import java.io.File
 
-open class RefreshVersionsMigrateTask : DefaultTask() {
+
+abstract class RefreshVersionsMigrateTask : DefaultTask() {
+
+    @get:InputDirectory
+    abstract val catalogsDirectory: DirectoryProperty
+
+    @get:InputFile
+    abstract val versionsProperties: RegularFileProperty
+
+    @get:OutputDirectory
+    abstract val outputDirectory: DirectoryProperty
 
     @Input
     @Option(option = "toml", description = "Use libraries from ${VersionCatalogs.LIBS_VERSIONS_TOML} before built-in dependency notations")
@@ -26,6 +44,7 @@ open class RefreshVersionsMigrateTask : DefaultTask() {
 
     @TaskAction
     fun migrateBuild() {
+
         val versionsCatalogMapping: Map<ModuleId.Maven, String> =
             VersionCatalogs.dependencyAliases(project.getVersionsCatalog())
 
