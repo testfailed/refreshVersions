@@ -46,7 +46,7 @@ enum class OutputFile(var path: String, var existed: Boolean = false, val altern
     }
 
     companion object {
-        val rootDir = File(".").canonicalFile
+        var rootDir = File(".").canonicalFile
 
         val settingsFiles = listOf(SETTINGS_GRADLE, SETTINGS_GRADLE_KTS, BUILD_SETTINGS_GRADLE, BUILD_SETTINGS_GRADLE_KTS)
 
@@ -70,7 +70,7 @@ enum class OutputFile(var path: String, var existed: Boolean = false, val altern
             println("$color$status$path$ANSI_RESET")
         }
 
-        fun checkWhichFilesExist(rootDir: File) {
+        fun checkWhichFilesExist() {
             values().forEach { outputFile ->
                 outputFile.existed = when {
                     rootDir.resolve(outputFile.path).exists() -> true

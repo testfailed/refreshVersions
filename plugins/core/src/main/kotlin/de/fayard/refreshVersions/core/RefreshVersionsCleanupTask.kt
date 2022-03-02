@@ -18,7 +18,7 @@ open class RefreshVersionsCleanupTask : DefaultTask() {
 
     @TaskAction
     fun cleanUpVersionsProperties() {
-        OutputFile.checkWhichFilesExist(project.rootDir)
+        OutputFile.checkWhichFilesExist()
         val model = VersionsPropertiesModel.readFromFile(RefreshVersionsConfigHolder.versionsPropertiesFile)
 
         val sectionsWithoutAvailableUpdates = model.sections.map { section ->
