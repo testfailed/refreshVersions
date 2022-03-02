@@ -4,6 +4,7 @@ import de.fayard.refreshVersions.core.extensions.gradle.isBuildSrc
 import de.fayard.refreshVersions.core.extensions.gradle.isRootProject
 import de.fayard.refreshVersions.core.internal.InternalRefreshVersionsApi
 import de.fayard.refreshVersions.core.internal.RefreshVersionsConfigHolder
+import de.fayard.refreshVersions.core.internal.skipConfigurationCache
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.register
@@ -23,6 +24,7 @@ open class RefreshVersionsCorePlugin : Plugin<Project> {
             project.tasks.register<RefreshVersionsTask>(name = "refreshVersions") {
                 group = "refreshVersions"
                 description = "Search for new dependencies versions and update $versionsFileName"
+                skipConfigurationCache()
             }
 
             project.tasks.register<RefreshVersionsCleanupTask>(name = "refreshVersionsCleanup") {

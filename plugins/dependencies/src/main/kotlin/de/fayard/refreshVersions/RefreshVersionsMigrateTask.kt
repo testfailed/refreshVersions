@@ -24,15 +24,6 @@ import java.io.File
 
 abstract class RefreshVersionsMigrateTask : DefaultTask() {
 
-    @get:InputDirectory
-    abstract val catalogsDirectory: DirectoryProperty
-
-    @get:InputFile
-    abstract val versionsProperties: RegularFileProperty
-
-    @get:OutputDirectory
-    abstract val outputDirectory: DirectoryProperty
-
     @Input
     @Option(option = "toml", description = "Use libraries from ${VersionCatalogs.LIBS_VERSIONS_TOML} before built-in dependency notations")
     var tomlFirst: Boolean = false
